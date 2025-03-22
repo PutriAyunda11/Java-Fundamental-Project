@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>HOME ADMIN</title>
+    <link rel="stylesheet" th:href="@{/css/sidebar-navbar.css}" />
+    <link rel="icon" href="/images/logo.jpg" type="image/png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Anton+SC&family=Edu+AU+VIC+WA+NT+Hand:wght@400..700&family=Overlock:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Pacifico&display=swap" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet"/>
+    <style>
+      body {
+        background-color: #a9d0eb;
+        font-family: "Overlock", sans-serif;
+      }
+      .content {
+        margin-left: 270px;
+        margin-right: 20px;
+        padding-top: 7px;
+        margin-top: 80px;
+        background: #ffffff;
+        width: auto;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      h3 {
+        text-align: center;
+        font-family: "Overlock", sans-serif;
+        font-weight: 700;
+        color: black;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+      th,
+      td {
+        padding: 10px;
+        text-align: center;
+        border: 1px solid #dee2e6;
+      }
+      th {
+        background-color: #507ba9;
+        color: white;
+      }
+      tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg fixed-top" th:fragment="navbar">
+      <div class="container-fluid">
+        <!-- Logo -->
+        <a class="navbar-brand" href="#" id="nama">PureFresh Laundry</a>
+          <!-- Icons -->
+          <a href="#">
+            <i class="bi bi-person-circle" style="font-size: 1.5rem"></i>
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <div th:replace="~{fragments/sidebar-navbar::sidebar}"></div>
+    <div class="content">
+      <h3>Pemesanan Ajuan</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Nama</th>
+            <th>Nomor Telepon</th>
+            <th>Alamat</th>
+            <th>Email</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="pemesanNull : ${pemesananNull}">
+            <td th:text="${pemesanNull.nama}"></td>
+            <td th:text="${pemesanNull.nomorTelp}"></td>
+            <td th:text="${pemesanNull.alamat}"></td>
+            <td th:text="${pemesanNull.email}"></td>
+            <td>
+              <form
+                th:action="@{'/tolak-pemesanan/' + ${pemesanNull.id}}"
+                method="post"
+                style="display: inline"
+              >
+              <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menolak pemesanan ini?')">
+                Tolak
+            </button>
+          </form>
+              <form th:action="@{'/terima-pemesanan/' + ${pemesanNull.id}}" method="post" style="display: inline">
+                <button type="submit" class="btn btn-success btn-sm">
+                    Terima
+                </button>
+            </form>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="content">
+      <h3>Konfirmasi Pembayaran</h3>
+      <table>
+          <thead>
+              <tr>
+                  <th>Jenis Pembayaran</th>
+                  <th>Tanggal Pembayaran</th>
+                  <th>Id Pemesanan</th>
+                  <th>Bukti Pembayaran</th>
+                  <th>Konfirmasi Pembayaran Selesai</th>
+              </tr>
+          </thead>
+          <tbody>
+              <th:block th:each="pembayaran : ${pembayaranPendingList}">
+                  <tr>
+                      <td th:text="${pembayaran.jenisPembayaran.jenisPembayaran}"></td>
+                      <td th:text="${pembayaran.tanggalPembayaran}"></td>
+                      <td th:text="${pembayaran.pemesanan.id}"></td>
+                      <td>
+                          <img 
+                              th:src="${pembayaran.buktiPembayaran}" 
+                              alt="Bukti Pembayaran" 
+                              class="img-thumbnail" 
+                              style="width: 50px; cursor: pointer;" 
+                              data-bs-toggle="modal" 
+                              data-bs-target="#imageModal" 
+                              th:data-bs-src="${pembayaran.buktiPembayaran}" />
+                      </td>
+                      <td>
+                          <a 
+                              href="#" 
+                              th:onclick="|window.location='@{/konfirmasiPembayaran/{id}(id=${pembayaran.id})}'|"
+                              class="btn btn-success btn-sm">
+                              Konfirmasi Pembayaran Selesai
+                          </a>
+                      </td>
+                  </tr>
+              </th:block>
+          </tbody>
+      </table>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="imageModalLabel">Bukti Pembayaran</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body text-center">
+                  <img id="modalImage" src="#" alt="Bukti Pembayaran" class="img-fluid">
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <div class="content">
+      <h3>Pemesanan Saat Ini</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Nama</th>
+            <th>Alamat</th>
+            <th>Tanggal Pemesanan</th>
+            <th>Jenis Satuan</th>
+            <th>Jumlah Pesan Satuan</th>
+            <th>Harga Satuan</th>
+            <th>Jumlah Pesan Kiloan</th>
+            <th>Harga Kiloan</th>
+            <th>Total Harga Pesanan</th>
+            <th>Jenis Pembayaran</th>
+            <th>Status Pemesanan</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="pemesanan : ${pemesananNonSelesai}">
+            <td th:text="${pemesanan.id}"></td>
+            <td th:text="${pemesanan.nama}"></td>
+            <td th:text="${pemesanan.alamat}"></td>
+            <td th:text="${pemesanan.tanggalPemesanan}"></td>
+            <td th:text="${pemesanan.jenisSatuan?.jenisPesanan ?: 'Tidak Ada'}"></td>
+            <td th:text="${pemesanan.jumlahPesananSatuan ?: '0'}"></td>
+            <td th:text="${pemesanan.jenisSatuan?.harga ?: '0'}"></td>
+            <td th:text="${pemesanan.jumlahPesananKiloan ?: '0'}"></td>
+            <td th:text="${pemesanan.hargaPerkilo ?: '0'}"></td>
+            <td th:text="${pemesanan.totalHarga ?: '0'}"></td>
+            <td
+              th:text="${pemesanan.pembayaran?.jenisPembayaran?.jenisPembayaran ?: 'Belum Dibayar'}"
+            ></td>
+            <td th:text="${pemesanan.statusPemesanan?.status ?: 'Tidak Diketahui'}"></td>
+            <td>
+              <a
+                th:href="@{'/edit-pemesanan/' + ${pemesanan.id}}"
+                class="btn btn-primary btn-sm"
+                >Edit Pesanan</a
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+      <script>
+      // JavaScript untuk mengganti src gambar di modal
+      document.addEventListener('DOMContentLoaded', function () {
+          const modalImage = document.getElementById('modalImage');
+          document.querySelectorAll('img[data-bs-target="#imageModal"]').forEach(img => {
+              img.addEventListener('click', function () {
+                  const src = this.getAttribute('data-bs-src');
+                  modalImage.setAttribute('src', src);
+              });
+          });
+      });
+  </script>
+
+  </body>
+</html>

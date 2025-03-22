@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Daftar Pelanggan</title>
+    <link rel="stylesheet" th:href="@{/css/sidebar-navbar.css}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" href="/images/logo.jpg" type="image/png">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anton+SC&family=Edu+AU+VIC+WA+NT+Hand:wght@400..700&family=Overlock:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #a9d0eb;
+            font-family: "Overlock", sans-serif;
+            /* overflow: hidden; */
+        }
+        div.content{
+            margin-left: 240px;
+            margin-right:20px ;
+            padding: 35px;
+        }
+        h2{
+            text-align: center;
+        }
+        .btn-success {
+            background-color: #80b3d6;
+            border-color: #80b3d6;
+        }
+        .btn-success:hover {
+            background-color: #5a97c3;
+            border-color: #5a97c3;
+        }
+        .btn-warning {
+            background-color: #f0c674;
+            border-color: #f0c674;
+        }
+        .btn-warning:hover {
+            background-color: #d9a449;
+            border-color: #d9a449;
+        }
+        .btn-danger {
+            background-color: #f08080;
+            border-color: #f08080;
+        }
+        .btn-danger:hover {
+            background-color: #d9534f;
+            border-color: #d9534f;
+        }
+        .table {
+            background-color: white;
+
+        }
+        .thead-dark th {
+            background-color: #5a97c3;
+            color: white;
+        }
+        h2 {
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <nav th:replace="~{fragments/sidebar-navbar::navbar}"></nav>
+    <div th:replace="~{fragments/sidebar-navbar::sidebar}"></div>
+
+    <div class="content container mt-4">
+        <h2 class="mb-4">Daftar Pelanggan</h2>
+        <a href="/pelanggan/tambah" class="btn btn-success mb-3">Tambah Pelanggan</a>
+
+        <!-- Tabel Daftar Pelanggan -->
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Nama</th>
+                    <th>Email</th>
+                    <th>Nomor Telepon</th>
+                    <th>Alamat</th>
+                    <th>Tanggal Daftar</th>
+                    <th>Password Pemesanan</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="pelanggan : ${pelangganList}">
+                    <td th:text="${pelanggan.id}">ID</td>
+                    <td th:text="${pelanggan.nama}">Nama</td>
+                    <td th:text="${pelanggan.email}">Email</td>
+                    <td th:text="${pelanggan.nomorTelp}">Nomor Telepon</td>
+                    <td th:text="${pelanggan.alamat}">Alamat</td>
+                    <td th:text="${pelanggan.tanggalDaftar}">Tanggal Daftar</td>
+                    <td th:text="${pelanggan.passwordPemesanan}">Password Pemesanan</td>
+                    <td>
+                        <!-- Tombol Update dan Delete -->
+                        <a th:href="@{/pelanggan/update/{id}(id=${pelanggan.id})}" class="btn btn-warning btn-sm">Update</a>
+                        <a th:href="@{/pelanggan/delete/{id}(id=${pelanggan.id})}" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus pelanggan ini?')">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

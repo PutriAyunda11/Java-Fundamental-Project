@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Registrasi Pelanggan</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/login-regis.css}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" href="/images/logo.jpg" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Anton+SC&family=Edu+AU+VIC+WA+NT+Hand:wght@400..700&family=Overlock:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Pacifico&display=swap" rel="stylesheet">
+</head>
+<body class="bodyy">
+    <h1>PureFresh LAUNDRY - Registrasi</h1>
+    <form class="registrasi-form" th:action="@{/regis-save}" method="post">
+
+        <div class="form-container">
+            <div class="form-section pelanggan-section">
+                <h2>Data Pelanggan</h2>
+                <label for="nama">Nama:</label>
+                <input type="text" id="nama" name="nama" placeholder="Masukkan Nama Anda" required />
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Masukkan Email Anda" required />
+
+                <label for="nomorTelp">Nomor Telepon:</label>
+                <input type="number" id="nomorTelp" name="nomorTelp" placeholder="Masukkan Nomor Telp Anda" required />
+
+                <label for="alamat">Alamat:</label>
+                <input type="text" id="alamat" name="alamat" placeholder="Masukkan Alamat Anda" required />
+                <label for="passwordPemesanan">Password Pemesanan:</label>
+                <input type="password" id="passwordPemesanan" name="passwordPemesanan" 
+                       placeholder="Masukkan 5 atau lebih Karakter Password Pemesanan" 
+                        required />
+            </div>
+
+            <div class="form-section login-section">
+                <h2>Data Login</h2>
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" placeholder="Masukkan Username" required />
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" placeholder="Masukkan Password" 
+                required />
+
+            </div>
+        </div>
+
+        <div>
+            <p style="color: red; font-weight: bold;" th:if="${error != null}" th:text="${error}">
+            </p>
+        </div>
+        <button type="submit">Daftar</button>
+
+    </form>
+</body>
+</html>

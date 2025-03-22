@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>document</title>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top" th:fragment="navbar">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#" id="nama">PureFresh Laundry</a>
+        <div class="d-flex align-items-center">
+          <a href="#">
+            <i class="bi bi-person-circle" style="font-size: 1.5rem;"></i>
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <div class="sidebar" th:fragment="sidebar">
+      <div class="menu">
+        <a th:href="@{/home-admin}">Dashboard</a>
+        <a th:href="@{/pemesanan}">Manajemen Order</a>
+        <a href="/pelanggan/tampil">Manajemen User</a>
+        <a href="/riwayat-pemesanan">Riwayat Pemesanan</a>
+      </div>
+      <a class="btn-logout" th:href="@{/}">Keluar</a>
+    </div>
+</body>
+</html>

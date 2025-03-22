@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>document</title>
+</head>
+<body>
+        <!-- Navigation -->
+        <nav class="navbar navbar-expand-lg fixed-top" id="navbar" th:fragment="navbar">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#" id="nama">PureFresh Laundry</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/home-pelanggan}">Beranda</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/layanan-pelanggan}">Layanan</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/pemesanan-pelanggan}">Pemesanan</a>
+                        </li>
+                        <div class="d-flex align-items-center">
+                            <a th:href="@{/akun-pelanggan}">
+                              <i class="bi bi-person-circle" style="font-size: 2rem; margin-right: 12px;"></i>
+                            </a>
+                        </div>                      
+                    </ul>
+                </div>
+            </div>
+            <hr>
+        </nav> 
+
+        <footer class="bg-dark text-white py-5"  th:fragment="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 mb-4">
+                        <h5>PureFresh Laundry</h5>
+                        <p class="mb-0">PureFresh Laundry adalah sebuah platform pemesanan laundry online yang memudahkan pengguna untuk mengatur dan memesan layanan laundry mereka secara efisien.</p>
+                    </div>    
+                    <div class="col-md-3 mb-4">
+                        <h5>Layanan Kami</h5>
+                        <p>Kami Menyediakan berbagai jenis Cucian satuan dan Kiloan dan siap antar-jemput pesanan anda</p>
+                    </div>
+                    <div class="col-md-3 mb-4">
+                        <h5>Kontak Kami</h5>
+                        <ul class="list-unstyled">
+                            <li><i class="bi bi-telephone-fill"></i> (+62) 821-1890-8801</li>
+                            <li><i class="bi bi-envelope-fill"></i> info@purefrshlaundry.com</li>
+                            <li><i class="bi bi-geo-alt-fill"></i> Jl.Megaraya I No.31, Sukaraja, CICENDO, KOTA BANDUNG, JAWA BARAT </li>
+                        </ul>
+                    </div>
+        
+                    <div class="col-md-3 mb-4">
+                        <h5>Ikuti Kami</h5>
+                        <div class="d-flex">
+                            <a href="#" class="text-white me-3"><i class="bi bi-facebook"></i></a>
+                            <a href="#" class="text-white me-3"><i class="bi bi-twitter"></i></a>
+                            <a href="#" class="text-white me-3"><i class="bi bi-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col text-center">
+                        <p class="mb-0">© 2024 PureFresh Laundry. All rights reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    
+</body>
+</html>

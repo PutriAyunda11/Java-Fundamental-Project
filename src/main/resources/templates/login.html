@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/login-regis.css}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" href="/images/logo.jpg" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Anton+SC&family=Edu+AU+VIC+WA+NT+Hand:wght@400..700&family=Overlock:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Pacifico&display=swap" rel="stylesheet">
+</head>
+<body class="bodyy">
+    <h1>PureFresh LAUNDRY</h1>
+        <form th:action="@{/cek-login}" method="post">
+            <h2>Login</h2>
+            <label>Username:</label>
+            <input type="text" name="username" required /><br />
+    
+            <label>Password:</label>
+            <input type="password" name="password" required /><br />
+    
+            <button type="submit">Login</button>
+            <p style="color: red; font-weight: bold;" th:if="${errorMessage != null}" th:text="${errorMessage}">
+            </p>
+            <p>Belum mempunyai akun? <a th:href="@{/registrasi}">Daftar di sini</a></p>
+        </form>
+</body>
+</html>
